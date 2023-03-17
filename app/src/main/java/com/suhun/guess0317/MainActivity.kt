@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.suhun.guess0317.databinding.ActivityMainBinding
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                     secretNumber.resetAll()
                     binding.contentLayout.userInput.text = null
                     binding.contentLayout.count.text = "0"
+                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
                 })
                 .setNeutralButton("Cancel", null)
                 .show()
