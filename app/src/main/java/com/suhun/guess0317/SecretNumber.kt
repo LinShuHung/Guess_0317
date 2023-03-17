@@ -23,7 +23,7 @@ class SecretNumber {
             return "Smaller!!!"
         }else{
             if(playCount<3){
-                return "Excellent! The number is $randomNumber"
+                return "Excellent! The number is $randomNumber!!!"
             }else{
                 return "You got it!!!"
             }
@@ -32,7 +32,7 @@ class SecretNumber {
 
     fun resetAll(){
         playCount = 0
-        randomNumber = Random().nextInt() + 1
+        randomNumber = Random().nextInt(100) + 1
         Log.d(tag,"Reset secret number:$randomNumber")
     }
 }

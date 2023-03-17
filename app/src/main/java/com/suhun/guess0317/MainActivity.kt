@@ -1,6 +1,7 @@
 package com.suhun.guess0317
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,12 +10,16 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.suhun.guess0317.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    val tag = MainActivity::class.simpleName
+    val secretNumber:SecretNumber = SecretNumber()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +30,16 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            AlertDialog.Builder(this)
+                .setTitle("Replay game")
+                .setMessage("Are you sure")
+                .setPositiveButton("Ok", {dialog, which->
+                    secretNumber.resetAll()
+                    binding.contentLayout.userInput.text = null
+                    binding.contentLayout.count.text = "0"
+                })
+                .setNeutralButton("Cancel", null)
+                .show()
         }
     }
 
@@ -46,4 +59,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun checkGuess(view: View){
+        var userInput:Int = binding.contentLayout.userInput.text.toString().toInt()
+        var message:String = secretNumber.verifyResult(resources, userInput)
+        var bingo = if(secretNumber.verify(userInput)==0) true else false
+
+        binding.contentLayout.count.text = secretNumber.playCount.toString()
+        AlertDialog.Builder(this)
+            .setTitle("Guess Result")
+            .setMessage(message)
+            .setPositiveButton("ok", {dialog, which->
+                binding.contentLayout.userInput.text = null
+            })
+            .show()
+    }
 }
