@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     secretNumber.resetAll()
                     binding.contentLayout.userInput.text = null
                     binding.contentLayout.count.text = "0"
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Reset Success", Toast.LENGTH_LONG).show()
                 })
                 .setNeutralButton("Cancel", null)
                 .show()
