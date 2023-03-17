@@ -1,13 +1,10 @@
 package com.suhun.guess0317
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -69,7 +66,15 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Guess Result")
             .setMessage(message)
             .setPositiveButton("ok", {dialog, which->
-                binding.contentLayout.userInput.text = null
+                if(bingo){
+                    val intent:Intent = Intent(this, RecordActivity::class.java)
+                    intent.putExtra("COUNT", secretNumber.playCount.toInt())
+                    intent.putExtra("NAME", binding.contentLayout.player.text.toString())
+                    startActivity(intent)
+
+                }else{
+                    binding.contentLayout.userInput.text = null
+                }
             })
             .show()
     }
